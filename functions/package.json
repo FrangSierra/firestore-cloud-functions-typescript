@@ -1,0 +1,23 @@
+{
+  "name": "functions",
+  "description": "Social Media Cloud Functions with Firestore",
+  "dependencies": {
+    "@types/express": "^4.0.39",
+    "@types/lodash": "^4.14.78",
+    "express": "^4.16.2",
+    "firebase-admin": "^5.4.3",
+    "firebase-functions": "^0.7.2",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "tslint": "^5.8.0",
+    "typescript": "^2.5.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "deploy": "tsc && firebase deploy --only functions"
+  },
+  "main": "build/index.js",
+  "private": true
+}

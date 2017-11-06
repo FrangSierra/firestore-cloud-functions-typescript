@@ -1,0 +1,151 @@
+//This is an example of structure in Firestore for a social-media structure with likes, comments and posts
+//Feel free to commit, or suggest changes.
+{
+  //Collection
+  "Posts": {
+    //Documents
+    "postId_1": {
+      //Post POJO
+      "creationDate": "15 of october, 2017 11:17:25 UTC+2",
+      "commentsCount": 1,
+      "likesCount": 1,
+      "content": "content",
+      "author": {
+        "fullname": "User 1",
+        "photoUrl": "https://.....",
+        "uid": "userId_1"
+      },
+      //Sub-collections
+      "Comments": {
+        //Documents
+        "commentId_1 ": {
+          "author": {
+            "fullname": "User 2",
+            "photoUrl": "https://.....",
+            "uid": "userId_2"
+          },
+          "postAuthorId": "userId_1",
+          //Keep track of the author of the post, to avoid nested queries later
+          "text": "Test comment",
+          "timestamp": "15 of october, 2017 15:17:25 UTC+2"
+        }
+      },
+      "Likes": {
+        //Documents
+        "likeId_1": {
+          "author": {
+            "fullname": "User 2",
+            "photoUrl": "https://.....",
+            "uid": "userId_2"
+          },
+          "postAuthorId": "userId_1",
+          //Keep track of the author of the post, to avoid nested queries later
+          "timestamp": "15 of october, 2017 15:17:25 UTC+2"
+        }
+      }
+    },
+    "postId_2": {},
+    "postId_3": {},
+    //Collection
+    "PrivateUserData": {
+      //Documents
+      "userId_1": {
+        "accountCreationDate": "10 of october, 2017, 16:04:37 UTC+2",
+        "email": "test@gmail.com",
+        "photoUrl": "https://.....",
+        "lastLogin": "12 of october, 2017, 13:04:37 UTC+2",
+        "messagingTokens": [
+          "messagingToken_1",
+          "messagingToken_2"
+        ],
+        //Feed is a subcollection which contains denormaliced data from the posts of the users that we are following
+        //You could save here just the Id's and later go for a nested query or store the whole POJO, when we are using
+        //Firebase Firestore and we will pay in order of the number or operations, I will suggest denormalized the data
+        //and later edit the data with atomic functions (when the username or photoUrl are changed, or the post is edited)
+
+        //In the end an user doesn't change their profile picture or name quite often, so even if it's an expensive update for a
+        //lot of references, it will be lower than go for nested queries every time we will retrieve posts, comments, likes...
+        "Feed": {
+          //Same data than original pojo
+          "postId-1": {
+            "creationDate": "15 of october, 2017 11:17:25 UTC+2",
+            "commentsCount": 1,
+            "likesCount": 1,
+            "content": "content",
+            "author": {
+              "fullname": "User 1",
+              "photoUrl": "https://.....",
+              "uid": "userId_1"
+            }
+          },
+          "postId-2": {}
+        },
+        //Events is a subcollection which contains information about the social events from an user, such as new followers,
+        //comments, likes.... also it's a way to keep track that your user already have been notified for that kind of event.
+        // If there is already an event of type "Follow" from the User 2, even if he unfollow, and follow our user again, we will
+        //know that there is no need to send a notificacion again.
+        "Events": {
+          //Documents
+          "eventId_1" : {
+            "kind" : "follow",
+            "interactionUserName" : "User 2",
+            "interactionUserProfilePicture": "https://.....",
+            "interactionUserId" : "userId_2",
+            "interactionRef" : "userId_2", //Here we are storing the key that we will need for the notification intent. An userId for follows, and a PostId for comments or likes.
+            "timestamp" :  "15 of october, 2017 11:17:25 UTC+2"
+          }
+        },
+        //The next three subcollections are just to keep references from the places where we have denormaliced data for this user, in this way we could retrieve later the comments,
+        //likes and posts to update the reference if needed. In other hand, the events could be also stored here, but right now we can query the by interactionUserId.
+        //In the same way with the Followers and Following from PublicUserData, we have the ids already stored there. We just need to retrieve them and edit the denormaliced data.
+        "AuthorOfComments" : {
+          "commentId_1" : {
+            "timeStamp" : "15 of october, 2017 11:17:25 UTC+2"
+          }
+        },
+        "AuthorOfLikes" : {
+          "likeId_1" : {
+            "timeStamp" : "15 of october, 2017 11:17:25 UTC+2"
+          }
+        },
+        "AuthorOfPosts" : {
+          "postId_1" : {
+            "timeStamp" : "15 of october, 2017 11:17:25 UTC+2"
+          }
+        }
+      }
+    },
+    "userId_2": {},
+    "userId_3": {}
+  },
+  //Collection
+  "PublicUserData": {
+    //Documents
+    "userId_1": {
+      "followersCount": 3,
+      "followingCount": 1,
+      "photoUrl": "https://.....",
+      "username": "User 1",
+      //Sub-collections
+      "Followers": {
+        //If you know that your followers and following will never grow to much(around more than 36K of keys)
+        //and surpass the Firestore 1MB document limit, you could store the Id's and the denormaliced data in an array.
+        "userId_2": {
+          "photoUrl": "https://.....",
+          "username": "User 2"
+        }
+      },
+      "Following": {
+        //Documents
+        "userId_3": {
+          "photoUrl": "https://.....",
+          "username": "User 3"
+        }
+      }
+    },
+    "userId_2": {
+    },
+    "userId_3": {
+    }
+  }
+}
