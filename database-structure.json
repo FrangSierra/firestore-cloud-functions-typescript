@@ -86,31 +86,32 @@
         //know that there is no need to send a notificacion again.
         "Events": {
           //Documents
-          "eventId_1" : {
-            "kind" : "follow",
-            "interactionUserName" : "User 2",
+          "eventId_1": {
+            "kind": "follow",
+            "interactionUserName": "User 2",
             "interactionUserProfilePicture": "https://.....",
-            "interactionUserId" : "userId_2",
-            "interactionRef" : "userId_2", //Here we are storing the key that we will need for the notification intent. An userId for follows, and a PostId for comments or likes.
-            "timestamp" :  "15 of october, 2017 11:17:25 UTC+2"
+            "interactionUserId": "userId_2",
+            "interactionRef": "userId_2",
+            //Here we are storing the key that we will need for the notification intent. An userId for follows, and a PostId for comments or likes.
+            "timestamp": "15 of october, 2017 11:17:25 UTC+2"
           }
         },
         //The next three subcollections are just to keep references from the places where we have denormalized data for this user, in this way we could retrieve later the comments,
         //likes and posts to update the reference if needed. In other hand, the events could be also stored here, but right now we can query the by interactionUserId.
         //In the same way with the Followers and Following from PublicUserData, we have the ids already stored there. We just need to retrieve them and edit the denormalized data.
-        "AuthorOfComments" : {
-          "commentId_1" : {
-            "timeStamp" : "15 of october, 2017 11:17:25 UTC+2"
+        "AuthorOfComments": {
+          "commentId_1": {
+            "timeStamp": "15 of october, 2017 11:17:25 UTC+2"
           }
         },
-        "AuthorOfLikes" : {
-          "likeId_1" : {
-            "timeStamp" : "15 of october, 2017 11:17:25 UTC+2"
+        "AuthorOfLikes": {
+          "likeId_1": {
+            "timeStamp": "15 of october, 2017 11:17:25 UTC+2"
           }
         },
-        "AuthorOfPosts" : {
-          "postId_1" : {
-            "timeStamp" : "15 of october, 2017 11:17:25 UTC+2"
+        "AuthorOfPosts": {
+          "postId_1": {
+            "timeStamp": "15 of october, 2017 11:17:25 UTC+2"
           }
         }
       }

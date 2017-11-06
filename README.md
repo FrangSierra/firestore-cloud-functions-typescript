@@ -9,7 +9,7 @@ and [Firestore](https://firebase.google.com/docs/firestore/)
 
  This cloud functions represent one of my last works with cloud functions: Implement a basic social media representation
  with posts, followers and feed, together with likes and comments. What will our cloud functions control?
- - Update the feed of the users when they follow/unfollow another user
+ - Update the feed of the users when they follow/un-follow another user
  - Send notifications and update the Events data for an user when one of their posts receive a like or comment.
  - Send notifications when we have a new follower
  - *In Progress* : Update all the denormalized data from the user when he change his profile(username or profile picture)

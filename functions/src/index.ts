@@ -2,7 +2,7 @@ import * as admin from 'firebase-admin'
 import * as functions from 'firebase-functions'
 admin.initializeApp(functions.config().firebase);
 
-import {COMMENT_EVENT, LIKE_EVENT} from "./FirebaseConst";
+import {COMMENT_EVENT, LIKE_EVENT} from "./constants";
 import * as notificationFunctions from './notifications/index'
 import * as atomicFunctions from './atomic-operations/index'
 

@@ -2,7 +2,7 @@ import {
     AUTHOR_OF_COMMENTS, AUTHOR_OF_LIKES, AUTHOR_OF_POSTS, COMMENTS, EVENTS, FEED, FOLLOWERS, LIKES, MAX_BATCH_SIZE,
     POSTS,
     PRIV_USER_DATA, PUBLIC_USER_DATA
-} from "../FirebaseConst";
+} from "../constants";
 import * as _ from "lodash";
 import {firestoreInstance} from "../index";
 

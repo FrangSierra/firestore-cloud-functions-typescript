@@ -1,4 +1,4 @@
-    import {EVENTS, FOLLOW_EVENT, PRIV_USER_DATA} from "../FirebaseConst";
+import {EVENTS, FOLLOW_EVENT, PRIV_USER_DATA} from "../constants";
 import * as admin from "firebase-admin";
 import {firestoreInstance} from "../index";
 
